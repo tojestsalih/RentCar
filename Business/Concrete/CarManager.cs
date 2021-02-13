@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -39,6 +40,11 @@ namespace Business.Concrete
             {
                 Console.WriteLine("Car description must contain at least 2 characters and DailyPrice > 0");
             }
+        }
+
+        public List<CarDetailDto> GetCarDetail()
+        {
+            return _iCarDal.GetCarDetails();
         }
     }
 }

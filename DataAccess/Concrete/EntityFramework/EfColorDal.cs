@@ -1,6 +1,10 @@
-﻿namespace DataAccess.Concrete.EntityFramework
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
+using Entities.Concrete;
+
+namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfColorDal
+    public class EfColorDal:EfEntityRepositoryBase<Color,RentCarContext>,IColorDal
     {
         
     }
