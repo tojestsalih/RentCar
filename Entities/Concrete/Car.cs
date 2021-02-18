@@ -1,9 +1,11 @@
-﻿using Core.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using Core.Entities;
 
 namespace Entities.Concrete
 {
     public class Car:IEntity
     {
+        [Key]
         public int Id { get; set; }
         public int BrandId { get; set; }
         public int ColorId { get; set; }

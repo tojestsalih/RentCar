@@ -11,6 +11,11 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarTest();
+            // UserManager manager = new UserManager(new EfUserDal());
+           // manager.AddUser(new User{FirstName = "Salih", LastName = "Ozturk", Email = "salabi@salabi.com", Password = "salabi"});
+           RentManager manager = new RentManager(new EfRentalDal());
+           manager.AddRental(new Rental {CarId = 1, UserId = 1, RentDate = new DateTime(2021,02,18) });
+
         }
 
         private static void CarTest()
