@@ -20,6 +20,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<User>>(_iUserDal.GetAll());
         }
 
+        public IDataResult<List<User>> GetById(int id)
+        {
+            return new SuccessDataResult<List<User>>(_iUserDal.GetAll(u => u.Id == id));
+        }
+
         public IResult AddUser(User user)
         {
             _iUserDal.Add(user);

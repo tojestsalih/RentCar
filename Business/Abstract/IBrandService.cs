@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using Core.Utilities.Results;
 using Entities.Concrete;
 
 namespace Business.Abstract
 {
     public interface IBrandService
     {
-        List<Brand> GetAll();
-        void Add(Brand brand);
-        
+        IDataResult<List<Brand>> GetAll();
+        IDataResult<List<Brand>> GetById(int id);
+        IResult AddBrand(Brand brand);
+        IResult UpdateBrand(Brand brand);
+        IResult DeleteBrand(Brand brand);
+
     }
 }

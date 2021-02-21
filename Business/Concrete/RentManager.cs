@@ -25,7 +25,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_iRentalDal.GetAll());
         }
 
-        public IResult AddRental(Rental rental)
+        public IDataResult<List<Rental>> GetById(int id)
+        {
+            return new SuccessDataResult<List<Rental>>(_iRentalDal.GetAll(r => r.RentId == id));
+        }
+ 
+        public IResult AddRent(Rental rental)
         {
             using (RentCarContext context = new RentCarContext())
             {
@@ -46,13 +51,13 @@ namespace Business.Concrete
 
         }
 
-        public IResult UpdateRental(Rental rental)
+        public IResult UpdateRent(Rental rental)
         {
             _iRentalDal.Update(rental);
             return new SuccessResult(Messages.EntityUpdated);
         }
 
-        public IResult DeleteRental(Rental rental)
+        public IResult DeleteRent(Rental rental)
         {
             _iRentalDal.Delete(rental);
             return new SuccessResult(Messages.EntityDelete);
