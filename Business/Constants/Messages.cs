@@ -8,5 +8,6 @@
         public static string EntitiesListed = "Entities Listed";
         public static string EntityUpdated = "Entity Updated";
         public static string EntityDelete = "Entity Deleted";
+        public static string CarImagesLimitExceeded="Images Limit Exceeded!";
     }
 }
