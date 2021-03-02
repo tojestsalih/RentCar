@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrete;
+
 
 namespace Business.Concrete
 {
@@ -15,6 +16,17 @@ namespace Business.Concrete
         {
             _iUserDal = iUserDal;
         }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_iUserDal.GetClaims(user));
+        }
+
+        public IDataResult<List<User>> GetByMail(string email)
+        {
+            return new SuccessDataResult<List<User>>(_iUserDal.GetAll(u => u.Email == email));
+        }
+
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_iUserDal.GetAll());
