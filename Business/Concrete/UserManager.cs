@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Business.Abstract;
 using Business.Constants;
 using Core.Entities.Concrete;
@@ -22,9 +23,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>(_iUserDal.GetClaims(user));
         }
 
-        public IDataResult<List<User>> GetByMail(string email)
+        public IDataResult<User> GetByMail(string email)
         {
-            return new SuccessDataResult<List<User>>(_iUserDal.GetAll(u => u.Email == email));
+            return new SuccessDataResult<User>(_iUserDal.Get(u => u.Email == email));
         }
 
         public IDataResult<List<User>> GetAll()
