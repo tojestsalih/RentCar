@@ -59,7 +59,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails());
         }
 
-        [SecuredOperation("admin")]
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult AddCar(Car car)
         {
