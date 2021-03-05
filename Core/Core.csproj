@@ -18,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CrossCuttingConcerns\Caching\Microsoft\" />
+    <Folder Include="CrossCuttingConcerns\Caching\Redis\" />
     <Folder Include="CrossCuttingConcerns\Validation\" />
     <Folder Include="DependencyResolvers\" />
   </ItemGroup>
