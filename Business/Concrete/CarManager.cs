@@ -38,13 +38,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(p => p.BrandId == id));
         }
 
-
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult UpdateCar(Car car)
         {
             _iCarDal.Update(car);
             return new SuccessResult(Messages.EntityUpdated);
         }
-
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult DeleteCar(Car car)
         {
             _iCarDal.Delete(car);
@@ -60,8 +60,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails());
         }
 
-        [SecuredOperation("product.add,admin")]
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult AddCar(Car car)
         {
             _iCarDal.Add(car);
