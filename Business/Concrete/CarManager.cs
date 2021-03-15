@@ -22,7 +22,7 @@ namespace Business.Concrete
         {
             _iCarDal = iCarDal;
         }
-        [CacheAspect]
+        
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_iCarDal.GetAll());
@@ -53,10 +53,6 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetail()
         {
-            if (DateTime.Now.Hour == 1)
-            {
-                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails());
         }
 

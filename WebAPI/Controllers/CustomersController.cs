@@ -11,19 +11,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentsController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        private IRentService _rentService;
+        private ICustomerService _customerService;
 
-        public RentsController(IRentService rentService)
+        public CustomersController(ICustomerService customerService)
         {
-            _rentService = rentService;
+            _customerService = customerService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _rentService.GetAll();
+            var result = _customerService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,46 +32,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getrentaldetail")]
-        public IActionResult GetRentalDetail()
+        [HttpGet("getcustomerdetail")]
+        public IActionResult GetCustomerDetail()
         {
-            var result = _rentService.GetRentalDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
-        {
-            var result = _rentService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        [HttpDelete("delete")]
-        public IActionResult Delete(Rental rent)
-        {
-            var result = _rentService.DeleteRent(rent);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        [HttpPut("update")]
-        public IActionResult Update(Rental rent)
-        {
-            var result = _rentService.UpdateRent(rent);
+            var result = _customerService.GetCustomerDetail();
             if (result.Success)
             {
                 return Ok(result);
@@ -81,14 +45,40 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rental rent)
+        public IActionResult AddCustomer(Customer customer)
         {
-            var result = _rentService.AddRent(rent);
+            var result = _customerService.AddCustomer(customer);
             if (result.Success)
             {
                 return Ok(result);
             }
+
             return BadRequest(result);
         }
+
+        [HttpPut("update")]
+        public IActionResult Update(Customer customer)
+        {
+            var result = _customerService.UpdateCustomer(customer);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult Delete(Customer customer)
+        {
+            var result = _customerService.DeleteCustomer(customer);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
     }
 }

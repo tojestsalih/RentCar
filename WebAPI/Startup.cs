@@ -46,6 +46,8 @@ namespace WebAPI
                     builder => builder.WithOrigins("http://localhost:3000"));
             });
 
+            services.AddCors();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -62,6 +64,7 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
+            
             services.AddDependencyResolvers(new ICoreModule[]
             {
                 new CoreModule()
@@ -75,6 +78,8 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseCors(builder => builder.WithOrigins("https://localhost:3000").AllowAnyHeader());
 
