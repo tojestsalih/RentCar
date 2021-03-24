@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -55,6 +56,28 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails());
         }
+        public IDataResult<List<CarDetailDto>> GetCarDetailById(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails(c => c.Id == id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByColor(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails(c => c.ColorId == colorId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByBrand(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails(c => c.BrandId == brandId));
+        }
+
+
+        public IDataResult<List<Car>> GetByCarId(int carId)
+        {
+            return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(c => c.Id == carId));
+        }
+
+        
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]

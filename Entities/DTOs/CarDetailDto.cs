@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using System.Dynamic;
+using Castle.DynamicProxy.Generators.Emitters;
+using Core.Entities;
 
 namespace Entities.DTOs
 {
@@ -10,6 +12,8 @@ namespace Entities.DTOs
         public bool Available { get; set; }
         public string ModelYear { get; set; }
         public string Description { get; set; }
+        public string VehicleType { get; set; }
+        public string Transmission { get; set; }
         public decimal DailyPrice { get; set; }
     }
 }

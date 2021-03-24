@@ -56,7 +56,7 @@ namespace Business.Concrete
                 return result;
             }
 
-            image.ImagePath = FileHelper.Add(file, image.CarId);
+            image.ImagePath = FileHelper.Add(file);
             image.Date = DateTime.Now;
             _carImageDal.Add(image);
             return new SuccessResult();
@@ -66,12 +66,20 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult UpdateImage(IFormFile file, CarImage image)
         {
+            IResult result = BusinessRules.Run(CheckImageLimitExceeded(image.CarId));
 
-            var result = _carImageDal.Get(c => c.ImageId == image.ImageId).ImagePath ;
-            image.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.ImageId == image.ImageId).ImagePath, file,image.CarId);
-            image.Date = DateTime.Now;
+            if (result != null)
+            {
+                return result;
+            }
+
+            var carImg = _carImageDal.Get(c => c.ImageId == image.ImageId);
+            carImg.Date = DateTime.Now;
+            carImg.ImagePath = FileHelper.Add(file);
+            FileHelper.Delete(image.ImagePath);
             _carImageDal.Update(image);
-            return new SuccessResult();
+            return new SuccessResult("image" + Messages.EntityUpdated);
+
         }
 
 

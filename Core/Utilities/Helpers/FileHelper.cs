@@ -6,57 +6,36 @@ namespace Core.Utilities.Helpers
 {
     public class FileHelper
     {
-
-
-        public static string Add(IFormFile file,Object id)
+        public static string Add(IFormFile image)
         {
-            var sourcepath = Path.GetTempFileName();
-            if (file.Length > 0)
+            string directory = Environment.CurrentDirectory + @"\wwwroot\";
+            string fileName = CreateNewFileName(image.FileName);
+
+            string path = Path.Combine(directory, "Images");
+            if (!Directory.Exists(path))
             {
-                using (var stream = new FileStream(sourcepath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
+                Directory.CreateDirectory(path);
             }
-            var result = NewPath(file, id);
-            File.Move(sourcepath, result);
-            return result;
+            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+
+            string filePath = Path.Combine(path, fileName);
+            return fileName;
         }
 
-
+        public static string CreateNewFileName(string fileName)
+        {
+            string[] file = fileName.Split('.');
+            string extension = file[1];
+            string newFileName = string.Format(@"{0}." + extension, Guid.NewGuid());
+            return newFileName;
+        }
 
         public static void Delete(string path)
         {
             File.Delete(path);
-        }
-
-
-
-        public static string Update(string sourcePath, IFormFile file, Object id)
-        {
-            var result = NewPath(file, id);
-            if (sourcePath.Length > 0)
-            {
-                using (var stream = new FileStream(result, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-            }
-            File.Delete(sourcePath);
-            return result;
-        }
-
-
-        public static string NewPath(IFormFile file, Object id)
-        {
-            FileInfo ff = new FileInfo(file.FileName);
-            string fileExtension = ff.Extension;
-
-            string path = Environment.CurrentDirectory + @"\Images\carImages\" + id;
-            var newPath = Guid.NewGuid().ToString() + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Year + fileExtension;
-
-            string result = $@"{path}\{newPath}";
-            return result;
         }
     }
 }
