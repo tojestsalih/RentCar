@@ -11,6 +11,28 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, RentCarContext>, IRentalDal
     {
+        public bool IsCarAvailableInGivenStatus(int carId, DateTime rentDate, DateTime? returnDate)
+        {
+            using (RentCarContext context = new RentCarContext())
+            {
+                bool isCarExist = context.Set<Rental>().Any(
+                    r => r.CarId == carId);
+                bool isDatesAvailable = context.Set<Rental>().Any(r => (
+                    (rentDate >= r.RentDate && rentDate <= r.ReturnDate) ||
+                    (returnDate >= r.RentDate && returnDate <= r.ReturnDate) ||
+                    (r.RentDate >= rentDate && r.RentDate <= returnDate)
+                ));
+
+                if (isCarExist&&isDatesAvailable)
+                {
+                    return true;
+                }
+                
+                    return false;
+                
+            }
+        }
+
         public List<RentalDetailDto> GetRentalDetails()
         {
             using (RentCarContext context = new RentCarContext())

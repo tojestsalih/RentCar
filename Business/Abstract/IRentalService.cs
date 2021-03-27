@@ -5,7 +5,7 @@ using Entities.DTOs;
 
 namespace Business.Abstract
 {
-    public interface IRentService
+    public interface IRentalService
     {
         IDataResult<List<Rental>> GetAll();
         IDataResult<List<Rental>> GetById(int id);
@@ -13,5 +13,6 @@ namespace Business.Abstract
         IResult UpdateRent(Rental rental);
         IResult DeleteRent(Rental rental);
         IDataResult<List<RentalDetailDto>> GetRentalDetails();
+        IResult CheckIsAvailable(Rental rental);
     }
 }

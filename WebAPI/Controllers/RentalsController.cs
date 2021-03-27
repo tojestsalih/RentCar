@@ -11,11 +11,11 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentsController : ControllerBase
+    public class RentalsController : ControllerBase
     {
-        private IRentService _rentService;
+        private IRentalService _rentService;
 
-        public RentsController(IRentService rentService)
+        public RentalsController(IRentalService rentService)
         {
             _rentService = rentService;
         }
@@ -88,6 +88,18 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
+            return BadRequest(result);
+        }
+
+        [HttpPost("checkcarstatus")]
+        public IActionResult CheckCarStatus(Rental rental)
+        {
+            var result = _rentService.CheckIsAvailable(rental);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
             return BadRequest(result);
         }
     }

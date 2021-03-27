@@ -11,11 +11,11 @@ using Entities.DTOs;
 
 namespace Business.Concrete
 {
-    public class RentManager : IRentService
+    public class RentalManager : IRentalService
     {
         private IRentalDal _iRentalDal;
 
-        public RentManager(IRentalDal iRentalDal)
+        public RentalManager(IRentalDal iRentalDal)
         {
             _iRentalDal = iRentalDal;
 
@@ -66,6 +66,16 @@ namespace Business.Concrete
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_iRentalDal.GetRentalDetails());
+        }
+
+        public IResult CheckIsAvailable(Rental rental)
+        {
+            if (_iRentalDal.IsCarAvailableInGivenStatus(rental.CarId, rental.RentDate, rental.ReturnDate))
+            {
+                return new SuccessResult();
+            }
+
+            return new ErrorResult();
         }
     }
 }
