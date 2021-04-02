@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,9 +29,16 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Color>>(_iColorDal.GetAll(p => p.ColorId == id));
         }
-
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult AddColor(Color color)
         {
+            IResult iResult = BusinessRules.Run(CheckNameAlreadyExits(color.ColorName));
+
+            if (iResult != null)
+            {
+                return iResult;
+            }
+
             _iColorDal.Add(color);
             return new SuccessResult(Messages.EntityAdded);
         }
@@ -42,6 +53,18 @@ namespace Business.Concrete
         {
             _iColorDal.Delete(color);
             return new SuccessResult(Messages.EntityDelete);
+        }
+
+        private IResult CheckNameAlreadyExits(string colorName)
+        {
+            var result = _iColorDal.GetAll(c=>c.ColorName == colorName).Any();
+
+            if (result)
+            {
+                return new ErrorResult(Messages.NameAlreadyExist);
+            }
+
+            return new SuccessResult();
         }
     }
 }
