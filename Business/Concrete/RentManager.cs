@@ -34,7 +34,7 @@ namespace Business.Concrete
         {
             using (RentCarContext context = new RentCarContext())
             {
-                var result = context.Cars.Any(c => c.Id == rental.CarId && c.Available);
+                var result = context.Cars.Any(c => c.CarId == rental.CarId && c.Available);
                 if (result)
                 {
                     Console.WriteLine("Eklendi");

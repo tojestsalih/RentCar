@@ -58,7 +58,7 @@ namespace Business.Concrete
         }
         public IDataResult<List<CarDetailDto>> GetCarDetailById(int id)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails(c => c.Id == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_iCarDal.GetCarDetails(c => c.CarId == id));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetailByColor(int colorId)
@@ -80,12 +80,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetByCarId(int carId)
         {
-            return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(c => c.Id == carId));
+            return new SuccessDataResult<List<Car>>(_iCarDal.GetAll(c => c.CarId == carId));
         }
 
         
 
-        [SecuredOperation("car.add,admin")]
+        //[SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult AddCar(Car car)

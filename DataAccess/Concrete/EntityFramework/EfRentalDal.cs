@@ -39,7 +39,7 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from rental in context.Rentals
                              join car in context.Cars 
-                             on rental.CarId equals car.Id
+                             on rental.CarId equals car.CarId
                              join customer in context.Customers 
                              on rental.CustomerId equals customer.Id
                              join brand in context.Brands
@@ -52,7 +52,7 @@ namespace DataAccess.Concrete.EntityFramework
 
                              select new RentalDetailDto
                              {
-                                 CarId = car.Id,
+                                 CarId = car.CarId,
                                  RentId = rental.RentId,
                                  CustomerId = customer.Id,
                                  FirstName = user.FirstName,

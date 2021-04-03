@@ -18,21 +18,21 @@ namespace DataAccess.Concrete.InMemory
             {
                 new Car
                 {
-                    Id = 1, BrandId = 1, ColorId = 3, DailyPrice = 99, Description = "VW Polo", ModelYear = "2015"
+                    CarId = 1, BrandId = 1, ColorId = 3, DailyPrice = 99, Description = "VW Polo", ModelYear = "2015"
                 },
                 new Car
                 {
-                    Id = 2, BrandId = 1, ColorId = 5, DailyPrice = 199, Description = "Toyota Corolla",
+                    CarId = 2, BrandId = 1, ColorId = 5, DailyPrice = 199, Description = "Toyota Corolla",
                     ModelYear = "2015"
                 },
                 new Car
                 {
-                    Id = 3, BrandId = 2, ColorId = 7, DailyPrice = 1500, Description = "Tesla Model X",
+                    CarId = 3, BrandId = 2, ColorId = 7, DailyPrice = 1500, Description = "Tesla Model X",
                     ModelYear = "2015"
                 },
                 new Car
                 {
-                    Id = 4, BrandId = 3, ColorId = 12, DailyPrice = 700, Description = "Audi A8", ModelYear = "2015"
+                    CarId = 4, BrandId = 3, ColorId = 12, DailyPrice = 700, Description = "Audi A8", ModelYear = "2015"
                 }
             };
         }
@@ -54,10 +54,10 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Car car)
         {
-            Car CarToUpdate = _car.SingleOrDefault(p => p.Id == car.Id);
+            Car CarToUpdate = _car.SingleOrDefault(p => p.CarId == car.CarId);
             CarToUpdate.DailyPrice = car.DailyPrice;
             CarToUpdate.Description = car.Description;
-            CarToUpdate.Id = car.Id;
+            CarToUpdate.CarId = car.CarId;
             CarToUpdate.ModelYear = car.ModelYear;
             CarToUpdate.BrandId = car.BrandId;
             CarToUpdate.ColorId = car.ColorId;
@@ -66,7 +66,7 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Car car)
         {
-            Car CarToDelete = _car.SingleOrDefault(p => p.Id == car.Id);
+            Car CarToDelete = _car.SingleOrDefault(p => p.CarId == car.CarId);
             _car.Remove(CarToDelete);
         }
 

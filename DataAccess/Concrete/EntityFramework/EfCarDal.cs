@@ -30,10 +30,12 @@ namespace DataAccess.Concrete.EntityFramework
                         Description = c.Description,
                         DailyPrice = c.DailyPrice,
                         BrandName = brand.BrandName,
-                        CarId = c.Id,
+                        CarId = c.CarId,
                         ColorName = color.ColorName,
                         Available = c.Available,
-                        ModelYear = c.ModelYear
+                        ModelYear = c.ModelYear,
+                        BrandId = brand.BrandId,
+                        ColorId = color.ColorId
                     };
                 return result.ToList();
             }
