@@ -29,7 +29,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Rental>>(_iRentalDal.GetAll(r => r.RentId == id));
         }
- 
+
+        public IDataResult<List<Rental>> GetByCarId(int carId)
+        {
+            return new SuccessDataResult<List<Rental>>(_iRentalDal.GetAll(r => r.CarId == carId));
+        }
+
         public IResult AddRent(Rental rental)
         {
             using (RentCarContext context = new RentCarContext())
