@@ -44,8 +44,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add(Payment payment)
+        [HttpPost("pay")]
+        public IActionResult Pay(Payment payment)
         {
             var result = _paymentService.Add(payment);
             if (result.Success)

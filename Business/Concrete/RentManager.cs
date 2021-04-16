@@ -35,24 +35,15 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_iRentalDal.GetAll(r => r.CarId == carId));
         }
 
+        public IDataResult<List<Rental>> GetByCustomerId(int customerId)
+        {
+            return new SuccessDataResult<List<Rental>>(_iRentalDal.GetAll(r => r.CustomerId == customerId));
+        }
+
         public IResult AddRent(Rental rental)
         {
-            using (RentCarContext context = new RentCarContext())
-            {
-                var result = context.Cars.Any(c => c.CarId == rental.CarId && c.Available);
-                if (result)
-                {
-                    Console.WriteLine("Eklendi");
-                    _iRentalDal.Add(rental);
-                    return new SuccessResult(Messages.EntityAdded);
-                }
-                else
-                {
-                    Console.WriteLine("Eklenemedi");
-                    return new ErrorResult(Messages.EntityNameInvalid);
-                }
-
-            }
+            _iRentalDal.Add(rental);
+            return new SuccessResult(Messages.EntityAdded);
 
         }
 
