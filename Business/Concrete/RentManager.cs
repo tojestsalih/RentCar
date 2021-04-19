@@ -73,5 +73,11 @@ namespace Business.Concrete
 
             return new ErrorResult();
         }
+
+        public IDataResult<List<RentalDetailDto>> GetDetailByCustomerId(int customerId)
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(
+                _iRentalDal.GetRentalDetails(r => r.CustomerId == customerId));
+        }
     }
 }

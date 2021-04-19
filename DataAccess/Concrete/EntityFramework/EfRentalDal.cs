@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
+using System.Linq.Expressions;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -33,11 +33,12 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<RentalDetailDto> GetRentalDetails()
+        public List<RentalDetailDto> GetRentalDetails(Expression<Func<Rental, bool>> filter = null)
         {
             using (RentCarContext context = new RentCarContext())
             {
-                var result = from rental in context.Rentals
+                    var result = 
+                    from rental in filter == null ? context.Rentals : context.Rentals.Where(filter)
                              join car in context.Cars 
                              on rental.CarId equals car.CarId
                              join customer in context.Customers 
@@ -63,7 +64,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  ColorName = color.ColorName,
                                  Description = car.Description,
                                  Email = user.Email,
-                                 DailyPrice = car.DailyPrice
+                                 DailyPrice = car.DailyPrice,
+                                 LastName = user.LastName,
+                                 TotalPrice = rental.TotalPrice
                              };
                 return result.ToList();
 
